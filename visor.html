@@ -3,8 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<title>Visor Simple OpenLayers</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.min.css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.min.js"></script>
+	<link rel="stylesheet" href="ol2/theme/default/style.css" />
+	
+	<script src="ol2/lib/OpenLayers.js"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key= AIzaSyAWGV-uEDtw1I-Oo3jOEaWhd9rTifR_0VE &callback=initMap"
   type="text/javascript"></script>
 	<style type="text/css">
@@ -51,7 +52,15 @@
 
 			// Capa Google
 			var layerGoogleSatelital = new OpenLayers.Layer.Google("Google Satelital",{type:google.maps.MapTypeId.SATELLITE});
-			map.addLayer(layerGoogleSatelital);
+			var layerGoogleHibrido = new OpenLayers.Layer.Google("Google Hidrido",{type:google.maps.MapTypeId.HYBRID});
+			var layerGoogleTerrain = new OpenLayers.Layer.Google("Google Terrain",{type:google.maps.MapTypeId.TERRAIN});
+
+			map.addLayers([layerGoogleHibrido, layerGoogleSatelital, layerGoogleTerrain]);
+			
+
+			// Control de cambio de Capas
+			var controlCapas = new OpenLayers.Control.LayerSwitcher();
+			map.addControl(controlCapas);
 
 		}
 		// Cargamos la función init, para desplegar el mapa
