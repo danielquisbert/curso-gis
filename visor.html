@@ -3,9 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>Visor Simple OpenLayers</title>
-	<link rel="stylesheet" href="ol2/theme/default/style.css" />
-	
-	<script src="ol2/lib/OpenLayers.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key= AIzaSyAWGV-uEDtw1I-Oo3jOEaWhd9rTifR_0VE &callback=initMap"
   type="text/javascript"></script>
 	<style type="text/css">
@@ -32,7 +31,7 @@
 	<script type="text/javascript">
 		var init = function(){
 
-			var proyeccion = new OpenLayers.Projection("EPSG:4326"); //EPSG:900913
+			var proyeccion = new OpenLayers.Projection("EPSG:900913"); //EPSG:900913
 			var controlNavegacion = new OpenLayers.Control.Navigation();
 			var controlZoom = new OpenLayers.Control.PanZoomBar(); // Zoom
 
@@ -61,6 +60,30 @@
 			// Control de cambio de Capas
 			var controlCapas = new OpenLayers.Control.LayerSwitcher();
 			map.addControl(controlCapas);
+
+			// Control de cursor
+			var controlCursor = new OpenLayers.Control.MousePosition();
+			map.addControl(controlCursor);
+
+			/// Capa consumiendo servicio WMS
+			var nombreWMS = "Límites departamentales";
+			var urlWMS = "http://geo.gob.bo/geoserver/wms";
+			var propiedadesWMS = {
+				layers: 'universidades:id_aymara',
+				transparent: true
+			};
+			var layerDepartamentosWMS = new OpenLayers.Layer.WMS(nombreWMS, urlWMS, propiedadesWMS);
+			map.addLayer(layerDepartamentosWMS);
+
+			// Configuración para mostrar la región de Bolivia
+			// Lon: -64.819336, Lat: -17.379999
+			var LonLat = new OpenLayers.LonLat(-64.819336, -17.379999);
+			var zoom = 5;
+			var LonLatTransformado = LonLat.transform(
+				new OpenLayers.Projection("EPSG:4326"),
+				map.getProjection() // new OpenLayers.Projection("EPSG:900913")
+			);
+			map.setCenter(LonLatTransformado, zoom);
 
 		}
 		// Cargamos la función init, para desplegar el mapa
