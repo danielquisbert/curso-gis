@@ -15,6 +15,7 @@ Sobre el key de activación, en el archivo encontraran 3 keys de activación, pu
 - http://boundingbox.klokantech.com/
 - https://maps.googleapis.com/maps/api/js
 - http://maps.stamen.com/js/tile.stamen.js
+- http://www.latlong.net/
 
 
 
