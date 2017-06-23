@@ -75,6 +75,16 @@
 			var layerDepartamentosWMS = new OpenLayers.Layer.WMS(nombreWMS, urlWMS, propiedadesWMS);
 			map.addLayer(layerDepartamentosWMS);
 
+			var layerEolico = new OpenLayers.Layer.WMS(
+				"Mapa Eólico",
+				"http://172.16.4.121:8080/geoserver/wms",
+				{
+					layers: 'curso-gis:EOLICO',
+					transparent: true
+				}
+			);
+			map.addLayer(layerEolico);
+
 			// Configuración para mostrar la región de Bolivia
 			// Lon: -64.819336, Lat: -17.379999
 			var LonLat = new OpenLayers.LonLat(-64.819336, -17.379999);
