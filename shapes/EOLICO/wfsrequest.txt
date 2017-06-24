@@ -1,0 +1,1 @@
+http://geo.gob.bo/geoserver/mdhye/ows?typeName=mdhye%3AEOLICO&outputFormat=SHAPE-ZIP&request=GetFeature&service=WFS&maxFeatures=50&version=1.0.0
