@@ -22,8 +22,8 @@
 			margin-top: 0;
 		}
 		#mapa{
-			height: 300px;
-			width: 600px;
+			height: 500px;
+			width: 100%;
 			border: solid 3px darkblue;
 		}
 		
@@ -32,14 +32,17 @@
 		var init = function(){
 
 			var proyeccion = new OpenLayers.Projection("EPSG:900913"); //EPSG:900913
+			var proyeccion2 = new OpenLayers.Projection("EPSG:4326"); //EPSG:900913
 			var controlNavegacion = new OpenLayers.Control.Navigation();
 			var controlZoom = new OpenLayers.Control.PanZoomBar(); // Zoom
-
+			var atribuciones = new OpenLayers.Control.Attribution({separator:' | '});
+			
 			// Propiedades del objeto Map
 			var propiedades = {
 				projection: proyeccion,
+				//displayProjection: proyeccion2,
 				units: 'm',
-				controls: [controlNavegacion, controlZoom]
+				controls: [controlNavegacion, controlZoom,atribuciones]
 			};
 
 			//Creación de una instancia de la clase Map
@@ -69,22 +72,18 @@
 			var nombreWMS = "Límites departamentales";
 			var urlWMS = "http://geo.gob.bo/geoserver/wms";
 			var propiedadesWMS = {
-				layers: 'universidades:id_aymara',
+				layers: 'fondos:departamento1',
 				transparent: true
+				//opacity: 0.1
+			}
+			var propiedadesWMS2 = {
+				visibility:false,
+				attribution: "sssssssss"
 			};
-			var layerDepartamentosWMS = new OpenLayers.Layer.WMS(nombreWMS, urlWMS, propiedadesWMS);
+			var layerDepartamentosWMS = new OpenLayers.Layer.WMS(nombreWMS, urlWMS, propiedadesWMS, propiedadesWMS2);
 			map.addLayer(layerDepartamentosWMS);
-
-			// Layer WMS desde geoserver Local
-			var layerEolico = new OpenLayers.Layer.WMS(
-				"Mapa Eólico",
-				"http://172.16.4.121:8080/geoserver/wms",
-				{
-					layers: 'curso-gis:EOLICO',
-					transparent: true
-				}
-			);
-			map.addLayer(layerEolico);
+			layerDepartamentosWMS.setOpacity(0.4);
+			//layerDepartamentosWMS.setVisibility(false);
 
 			var layerJson = new OpenLayers.Layer.Vector(
 				"Capa Uyuni-json",
@@ -99,6 +98,7 @@
 				}
 			);
 			map.addLayer(layerJson);
+			layerJson.setVisibility(false);
 			// Configuración para mostrar la región de Bolivia
 			// Lon: -64.819336, Lat: -17.379999
 			var LonLat = new OpenLayers.LonLat(-64.819336, -17.379999);
