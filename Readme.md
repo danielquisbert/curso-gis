@@ -46,5 +46,5 @@ google:
 shp2pgsql -s <SRID> <shapefile> <tablename> <db_name> > filename.sql
 ```
 donde SRID: 4326, 26910, 900913, etc.
-para el caso de Bolivia generalmente se utiliza 4326
+
 
