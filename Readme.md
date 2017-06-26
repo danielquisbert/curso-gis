@@ -50,3 +50,57 @@ shp2pgsql -s <SRID> <shapefile> <tablename> <db_name> > filename.sql
 donde SRID: 4326, 26910, 900913, etc.
 
 
+## Pasos para configurar PosGIS
+
+### paso 1
+
+conectarse a postgres
+
+### paso 2
+
+Crear un usuario específico para el curso
+
+### paso 3
+
+Crear la DB (dbcursogis) y que el usuario creado sea dueño de la nueva DB
+
+### paso 4
+
+Cargar y/o habilitar PostGIS en la nueva DB
+
+
+## Pasos para cargar un shape a PostGIS
+
+### paso 1
+
+Conseguir un archivo Shape (shp)
+
+### paso 2
+
+Convertir el archivo shape a un archivo SQL (.sql)
+
+### paso 3
+
+Importar el archivo SQL a postGIS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
