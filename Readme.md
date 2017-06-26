@@ -17,6 +17,8 @@ Sobre el key de activación, en el archivo encontraran 3 keys de activación, pu
 - http://maps.stamen.com/js/tile.stamen.js
 - http://www.latlong.net/
 
+### Proyecciones
+- http://docs.openlayers.org/library/spherical_mercator.html#what-is-spherical-mercator
 
 
 
