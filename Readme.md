@@ -21,10 +21,12 @@ Sobre el key de activación, en el archivo encontraran 3 keys de activación, pu
 
 
 #### Ayuda
+```
 mapboxLayer = new OpenLayers.Layer.XYZ('MapBox', [
              				    
 			    "http://b.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/${z}/${x}/${y}.png",
-            	"http://c.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/${z}/${x}/${y}.png",
+   
+   "http://c.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/${z}/${x}/${y}.png",
             	"http://d.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/${z}/${x}/${y}.png"
 			    ], {
             sphericalMercator: true,
@@ -32,8 +34,17 @@ mapboxLayer = new OpenLayers.Layer.XYZ('MapBox', [
             wrapDateLine: true,
         	numZoomLevels: 19
         });
-        
+```        
 
 google:
 
        ("Mapa Satelital",{type:google.maps.MapTypeId.TIPYMAP});
+
+## Shp a sql
+
+```
+shp2pgsql -s <SRID> <shapefile> <tablename> <db_name> > filename.sql
+```
+donde SRID: 4326, 26910, 900913, etc.
+para el caso de Bolivia generalmente se utiliza 4326
+
