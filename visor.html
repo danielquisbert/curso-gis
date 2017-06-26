@@ -69,22 +69,37 @@
 			var nombreWMS = "Límites departamentales";
 			var urlWMS = "http://geo.gob.bo/geoserver/wms";
 			var propiedadesWMS = {
-				layers: 'universidades:id_aymara',
+				layers: 'fondos:departamento1',
 				transparent: true
 			};
+
 			var layerDepartamentosWMS = new OpenLayers.Layer.WMS(nombreWMS, urlWMS, propiedadesWMS);
+			layerDepartamentosWMS.setVisibility(false);
 			map.addLayer(layerDepartamentosWMS);
 
 			// Layer WMS desde geoserver Local
 			var layerEolico = new OpenLayers.Layer.WMS(
 				"Mapa Eólico",
-				"http://172.16.4.121:8080/geoserver/wms",
+				"http://192.168.56.101:8080/geoserver/wms",
 				{
 					layers: 'curso-gis:EOLICO',
 					transparent: true
 				}
 			);
 			map.addLayer(layerEolico);
+			layerEolico.setVisibility(false);
+
+			// Capa Presas 2010  
+			var layerPresas = new OpenLayers.Layer.WMS(
+				"Mapa de Represas",
+				"http://192.168.56.101:8080/geoserver/wms",
+				{
+					layers: 'curso-gis:Presas2010',
+					transparent: true
+				}
+			);
+			map.addLayer(layerPresas);
+			layerPresas.setVisibility(false);
 
 			var layerJson = new OpenLayers.Layer.Vector(
 				"Capa Uyuni-json",
@@ -99,6 +114,7 @@
 				}
 			);
 			map.addLayer(layerJson);
+			layerJson.setVisibility(false);
 			// Configuración para mostrar la región de Bolivia
 			// Lon: -64.819336, Lat: -17.379999
 			var LonLat = new OpenLayers.LonLat(-64.819336, -17.379999);
