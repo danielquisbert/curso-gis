@@ -34,6 +34,7 @@
 			var proyeccion = new OpenLayers.Projection("EPSG:900913"); //EPSG:900913
 			var controlNavegacion = new OpenLayers.Control.Navigation();
 			var controlZoom = new OpenLayers.Control.PanZoomBar(); // Zoom
+			var host = "http://192.168.43.69";
 
 			// Propiedades del objeto Map
 			var propiedades = {
@@ -81,7 +82,7 @@
 			// Layer WMS desde geoserver Local
 			var layerEolico = new OpenLayers.Layer.WMS(
 				"Mapa Eólico",
-				"http://192.168.56.101:8080/geoserver/wms",
+				host + ":8080/geoserver/wms",
 				{
 					layers: 'curso-gis:EOLICO',
 					transparent: true
@@ -90,10 +91,22 @@
 			map.addLayer(layerEolico);
 			layerEolico.setVisibility(false);
 
+			// Layer WMS mapa Eolico desde PostGIS
+			var layerEolicoPG = new OpenLayers.Layer.WMS(
+				"Mapa Eólico PostGIS",
+				host + ":8080/geoserver/wms",
+				{
+					layers: 'curso-gis:tbl_eolico',
+					transparent: true
+				}
+			);
+			map.addLayer(layerEolicoPG);
+			layerEolicoPG.setVisibility(false);
+
 			// Capa Presas 2010  
 			var layerPresas = new OpenLayers.Layer.WMS(
 				"Mapa de Represas",
-				"http://192.168.56.101:8080/geoserver/wms",
+				host + ":8080/geoserver/wms",
 				{
 					layers: 'curso-gis:Presas2010',
 					transparent: true
