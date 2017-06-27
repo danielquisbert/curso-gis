@@ -31,6 +31,7 @@ for ($i = 0; $i < $fileCount; $i++) {
     }
     // set proper permissions on the new file
     chmod(UPLOAD_DIR . $name, 0644);
+    header("Location: http://192.168.43.69/curso-gis/visor.html");
 }
 }
 else
