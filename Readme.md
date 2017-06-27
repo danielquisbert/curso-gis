@@ -36,7 +36,34 @@ mapboxLayer = new OpenLayers.Layer.XYZ('MapBox', [
             wrapDateLine: true,
         	numZoomLevels: 19
         });
-```        
+```     
+
+### Control para la consulta de información de un Layer
+```  
+new OpenLayers.Control.WMSGetFeatureInfo({
+	queryVisible: true,
+	eventListeners: {
+		getfeatureinfo: function (event){
+			....
+			....
+		}
+	}
+});
+
+```  
+
+### Popup 
+```
+popup = new OpenLayers.Popup.FramedCloud(
+	'Popup',
+	map.getLonLatFromPixel(event.xy),
+	null,
+	event.text,
+	null,
+	true
+);
+
+```
 
 google:
 
