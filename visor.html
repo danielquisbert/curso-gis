@@ -135,8 +135,18 @@
 				queryVisible: true,
 				eventListeners: {
 					getfeatureinfo: function (event){
-						var info = document.getElementById("informacion");
-						info.innerHTML = event.text;
+						var popup = new OpenLayers.Popup.FramedCloud(
+							'Popup',
+							map.getLonLatFromPixel(event.xy),
+							null,
+							event.text,
+							null,
+							true
+						);
+						map.addPopup(popup);
+
+						//var info = document.getElementById("informacion");
+						//info.innerHTML = event.text;
 					}
 				}
 			});
