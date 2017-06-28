@@ -35,6 +35,7 @@
 			var controlNavegacion = new OpenLayers.Control.Navigation();
 			var controlZoom = new OpenLayers.Control.PanZoomBar(); // Zoom
 			var host = "http://192.168.43.69";
+			OpenLayers.ProxyHost = "/cgi-bin/proxy?url=";
 
 			// Propiedades del objeto Map
 			var propiedades = {
@@ -129,6 +130,20 @@
 			);
 			map.addLayer(layerJson);
 			layerJson.setVisibility(false);
+
+			var	controlInfo = new OpenLayers.Control.WMSGetFeatureInfo({
+				queryVisible: true,
+				eventListeners: {
+					getfeatureinfo: function (event){
+						var info = document.getElementById("informacion");
+						info.innerHTML = event.text;
+					}
+				}
+			});
+			map.addControl(controlInfo);
+			controlInfo.activate();
+
+
 			// Configuración para mostrar la región de Bolivia
 			// Lon: -64.819336, Lat: -17.379999
 			var LonLat = new OpenLayers.LonLat(-64.819336, -17.379999);
@@ -149,6 +164,8 @@
 		<h2>Visor Simple OpenLayers</h2>
 	</div>
 	<div id="mapa"></div>
+
+	<div id="informacion"></div>
 	
 
 	<hr>
