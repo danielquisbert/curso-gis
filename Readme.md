@@ -56,7 +56,7 @@ new OpenLayers.Control.WMSGetFeatureInfo({
 ```
 popup = new OpenLayers.Popup.FramedCloud(
 	'Popup',
-	map.getLonLatFromPixel(event.xy),
+	map.getLonLatFromPixel(xy),
 	null,
 	event.text,
 	null,
