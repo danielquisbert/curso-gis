@@ -145,8 +145,9 @@
 						);
 						map.addPopup(popup);
 
-						//var info = document.getElementById("informacion");
-						//info.innerHTML = event.text;
+						var info = document.getElementById("informacion");
+						var posicion = map.getLonLatFromPixel(event.xy);
+						info.innerHTML = posicion.lon +" | "+ posicion.lat;
 					}
 				}
 			});
