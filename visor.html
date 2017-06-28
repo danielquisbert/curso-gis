@@ -32,6 +32,7 @@
 		var init = function(){
 
 			var proyeccion = new OpenLayers.Projection("EPSG:900913"); //EPSG:900913
+			var proyeccion2 = new OpenLayers.Projection("EPSG:4326");
 			var controlNavegacion = new OpenLayers.Control.Navigation();
 			var controlZoom = new OpenLayers.Control.PanZoomBar(); // Zoom
 			var host = "http://192.168.43.69";
@@ -40,6 +41,7 @@
 			// Propiedades del objeto Map
 			var propiedades = {
 				projection: proyeccion,
+				displayProjection: proyeccion2,
 				units: 'm',
 				controls: [controlNavegacion, controlZoom],
 				numZoomLevels: 21
