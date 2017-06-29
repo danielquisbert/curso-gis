@@ -5,7 +5,8 @@
 	<title>Visor Simple OpenLayers</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWGV-uEDtw1I-Oo3jOEaWhd9rTifR_0VE"
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtG0WjPQNYUG52rnAj1PbgJ1kLs2Yh2n4"
+
   type="text/javascript"></script>
 	<style type="text/css">
 		html, body {
@@ -40,7 +41,7 @@
 			// Propiedades del objeto Map
 			var propiedades = {
 				projection: proyeccion,
-				//displayProjection: proyeccion2,
+				displayProjection: proyeccion2,
 				units: 'm',
 				controls: [controlNavegacion, controlZoom,atribuciones]
 			};
@@ -63,6 +64,11 @@
 			// Control de cambio de Capas
 			var controlCapas = new OpenLayers.Control.LayerSwitcher();
 			map.addControl(controlCapas);
+			map.addControl(new OpenLayers.Control.MousePosition());
+			map.setCenter(new OpenLayers.LonLat(-68.161840, -16.512441).transform(
+				new OpenLayers.Projection("EPSG:4326"),
+				new OpenLayers.Projection("EPSG:900913")
+				), 8);
 
 			// Control de cursor
 			var controlCursor = new OpenLayers.Control.MousePosition();
@@ -99,6 +105,81 @@
 			);
 			map.addLayer(layerJson);
 			layerJson.setVisibility(false);
+			var layerJson2 = new OpenLayers.Layer.Vector(
+				"Capa Salar-KML",
+				{
+					projection: new OpenLayers.Projection("EPSG:4326"),
+					strategies: [new OpenLayers.Strategy.Fixed()],
+
+					protocol: new OpenLayers.Protocol.HTTP({
+						url: './salar.kml',
+						format: new OpenLayers.Format.KML()
+					})
+				}
+			);
+			map.addLayer(layerJson2);
+			layerJson2.setVisibility(false);
+
+
+
+			// --- CONTROL PARA MOSTRAR METADATA DE UN  LAYER
+		var getInfo = new OpenLayers.Control.WMSGetFeatureInfo(
+				{
+					
+					queryVisible: true,
+					
+				}
+			);
+		getInfo.events.on({
+			getfeatureinfo: function (event){
+				var popup = new OpenLayers.Popup.FramedCloud(
+					'Popup',
+					map.getLonLatFromPixel(event.xy),
+					null,
+					event.text,
+					null,
+					true
+				);
+				var datos =  event.features.length;
+				console.log(datos);
+				map.addPopup(popup,false);
+				var datos2 = document.getElementById('datos2');
+				var position = map.getLonLatFromViewPortPx(event.xy);
+				lonlat = position.transform(
+					new OpenLayers.Projection("EPSG:900913"),
+					new OpenLayers.Projection("EPSG:4326")
+				);
+				datos2.innerHTML = lonlat.toString();
+				console.log("xxxxxxxxxxxxxxxxxx");
+				var x = popup.contentHTML;
+				x.getElementsByTagName( 'a' );
+		      console.log(popup.contentHTML);
+			},
+		    beforegetfeatureinfo: function(e) {
+		      // Code here to set the content of queryableMapLayers
+		      // The event object will contain xy of mouse click
+		      console.log(e);
+		      
+		      
+		    },
+		    nogetfeatureinfo: function(event) {
+     		// Code here if no queryable layers are found
+     		alert("Este layer no proviene de un servicio WMS")
+     		
+    		}
+		});
+		map.addControl(getInfo);
+		getInfo.activate();
+
+		/*map.events.register("click", map, function (e) {
+			console.log(e);
+   			var position = map.getLonLatFromViewPortPx(e.xy);
+   			console.log(position);
+   			var datos = OpenLayers.Util.getElement("datos2");
+							datos.innerHTML =position.lon + " | " + position.lat;
+    		//OpenLayers.Util.getElement("tooltip").innerHTML = "<label>Latitude: " + position.lat + "</label><br/><label>Longitude: " + position.lon + "</label>";
+		});*/
+
 			// Configuración para mostrar la región de Bolivia
 			// Lon: -64.819336, Lat: -17.379999
 			var LonLat = new OpenLayers.LonLat(-64.819336, -17.379999);
@@ -119,6 +200,7 @@
 		<h2>Visor Simple OpenLayers</h2>
 	</div>
 	<div id="mapa"></div>
+	<div id="datos2"></div>
 </body>
 </html>
 
