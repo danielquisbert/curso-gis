@@ -65,6 +65,12 @@ popup = new OpenLayers.Popup.FramedCloud(
 
 ```
 
+### Centrar el mapa utilizando un boundingbox (encuadre) y la función **getCenterLonLat** de la clase Map
+
+```
+new OpenLayers.Bounds(-x, -y, x, y);
+```
+
 google:
 
        ("Mapa Satelital",{type:google.maps.MapTypeId.TIPYMAP});
@@ -172,9 +178,50 @@ psql -h localhost -U cursouser -d dbcursogis -f /PATH/ARCHIVO/SHAPE/nombreArchiv
 ```
 
 
+## Configuraciones adicionales
 
+Ayudaran a mejorar el performance de la aplicación que se vaya a desarrollar
 
+```
+OpenLayers.DOTS_PER_INCH = 90.71428571428572;
+```
 
+Para mostrar de mejor manera el error de imágenes no renderizadas
+
+```
+OpenLayers.Util.onImageLoadErrorColor= 'transparent';
+
+o
+
+.olImageLoadError { 
+    background-color: transparent; 
+    opacity: 0.5; 
+    filter: alpha(opacity=50); /* IE */ 
+} 
+
+OpenLayers.Util.onImageLoadError = function() {
+     this.src = '/path/to/custom-blank.png';
+};
+```
+Para la navegación desde un dispositivo móvil
+
+```
+controlTouch = new OpenLayers.Control.TouchNavigation({dragPanOptions:{enableKinetic:true}});
+```
+
+Utilizar una resolución recomendada para el mapa
+
+```
+maxResolution: 196543.0339
+```
+
+Personalizar las fuentes para el mapa y los layers
+
+```
+new OpenLayers.Control.Attribution({
+	template:"<span style='color:darkblue;font-weight:bold;'>Curso GIS - Postgrado en Informática</span>"
+});
+```
 
 
 
